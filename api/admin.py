@@ -22,13 +22,16 @@ class ImageInline(admin.TabularInline):
     model = Image
     extra = 0  # Set to 0 to remove the empty extra row
 
+
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0  # Set to 0 to remove the empty extra row
 
+
 class ShippingAddressInline(admin.TabularInline):
     model = ShippingAddress
     extra = 0  # Set to 0 to remove the empty extra row
+
 
 class PaymentInline(admin.TabularInline):
     model = Payment
@@ -160,17 +163,13 @@ class CustomUserAdmin(UserAdmin):
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
 
+
 class OrderAdmin(admin.ModelAdmin):
-    list_display = (
-        "user",     
-        "created_at")
-    inlines = [
-        OrderItemInline,
-        ShippingAddressInline,
-        PaymentInline
-    ]  
-    ordering = ('-id',)
-    list_per_page = 20 
+    list_display = ("id", "user", "created_at")
+    inlines = [OrderItemInline, ShippingAddressInline, PaymentInline]
+    search_fields = ["id"]
+    ordering = ("-id",)
+    list_per_page = 20
 
 
 class OrderItemAdmin(admin.ModelAdmin):
@@ -182,9 +181,10 @@ class OrderItemAdmin(admin.ModelAdmin):
         "quantity",
     )
     list_filter = ("is_active", "product")
-    # search_fields = ['end_date','start_date']
+    search_fields = ["id", "order"]
     list_per_page = 20  # Number of items per page
     ordering = ("-id",)  # Sort by ID in descending order
+
 
 class PaymentAdmin(admin.ModelAdmin):
     list_display = (
@@ -193,7 +193,7 @@ class PaymentAdmin(admin.ModelAdmin):
         "payment_method",
         "payment_status",
         "amount",
-        "transaction_id"
+        "transaction_id",
     )
     search_fields = ["transaction_id", "id"]
     list_filter = ("is_active",)
@@ -201,16 +201,21 @@ class PaymentAdmin(admin.ModelAdmin):
     list_per_page = 20  # Number of items per page
     ordering = ("-id",)  # Sort by ID in descending order
 
+
+class ImageAdmin(admin.ModelAdmin):
+    search_fields = ["id"]
+    ordering = ("-id",)
+    list_per_page = 20
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(SubCategory, SubCategoryAdmin)
 admin.site.register(Discount, DiscountAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Variant, VariantAdmin)
 admin.site.register(User, CustomUserAdmin)
-admin.site.register(Image)
+admin.site.register(Image, ImageAdmin)
 admin.site.register(ShippingAddress)
-admin.site.register(OrderItem,OrderItemAdmin)
-admin.site.register(Payment,PaymentAdmin)
-
+admin.site.register(OrderItem, OrderItemAdmin)
+admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Order, OrderAdmin)
-

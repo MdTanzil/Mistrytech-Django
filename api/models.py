@@ -156,6 +156,56 @@ class User (AbstractUser):
     def __str__(self):
         return self.username
 
+
+class Order(models.Model):
+    user = models.ForeignKey(User, blank=True,null=True,related_name="orders",on_delete=models.SET_NULL)
+    total =models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    discount_amount =models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    gross_amount =models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    shipping_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    net_amount =models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    def __str__(self):
+        return f"{self.id}"
+    
+class ShippingAddress(models.Model):
+    order = models.OneToOneField(Order,null=True,blank=True,related_name="shipping_address",on_delete=models.CASCADE)
+    full_address = models.TextField(blank=True,null=True)
+    city = models.CharField(max_length=100,blank=True,null=True)
+    zip_code = models.CharField(null=True,blank=True,max_length=50)
+    def __str__ (self):
+        return self.full_address
+        
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order,related_name="order_items",on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,null=True,blank=True,related_name="order_items",on_delete=models.SET_NULL)
+    variant = models.ForeignKey(Variant,null=True,blank=True,related_name="order_items",on_delete=models.SET_NULL)
+    quantity = models.IntegerField(null=True,blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    def __str__ (self):
+        return f"Product quantity{self.quantity} product price{self.price}"
+    
+
+class Payment(models.Model):
+    order = models.ForeignKey(Order,null=True,blank=True,related_name="payments",on_delete=models.CASCADE)
+    payment_method = models.CharField(max_length=100,null=True,blank=True)
+    payment_status = models.CharField(max_length=100,null=True,blank=True)
+    amount = models.FloatField()
+    transaction_id = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return self.payment_status
+
 # Signals to generate slug for Category, SubCategory, and Product
 @receiver(pre_save, sender=Category)
 @receiver(pre_save, sender=SubCategory)

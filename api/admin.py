@@ -27,6 +27,12 @@ class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0  # Set to 0 to remove the empty extra row
 
+class VariantInline(admin.TabularInline):
+    model = Variant
+    extra = 0  # Set to 0 to remove the empty extra row
+
+
+
 
 class ShippingAddressInline(admin.TabularInline):
     model = ShippingAddress
@@ -41,8 +47,8 @@ class PaymentInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = (
         "name",
-        "category",
-        "subcategory",
+        "get_categories",
+        "get_subcategories",
         "price",
         "discounted_price",
         "quantity",
@@ -52,14 +58,19 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ("category", "subcategory", "is_active")
     search_fields = ["name", "description"]
     inlines = [
+        VariantInline,
         ImageInline
     ]  # Include ImageInline to display images related to the product
     list_per_page = 20  # Number of items per page
     ordering = ("-id",)  # Sort by ID in descending order
-
+    def get_categories(self, obj):
+        return ", ".join([category.name for category in obj.category.all()])
+    def get_subcategories(self, obj):
+        return ", ".join([subcategory.name for subcategory in obj.subcategory.all()])
     def discounted_price(self, obj):
         return obj.discounted_price
-
+    get_categories.short_description = 'Categories'
+    get_subcategories.short_description = 'Subcategories'
     def image_display(self, obj):
         images_html = ""
         if (

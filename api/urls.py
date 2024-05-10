@@ -14,6 +14,8 @@ from .views import (
     CategoryListView,
     SubCategoryDetailView,
     SubCategoryListView,
+    SubCategoryDetailViewSlag,
+    CategoryDetailViewSlag,
 )
 
 router = routers.DefaultRouter()
@@ -32,5 +34,19 @@ urlpatterns = [
     path("category/", CategoryListView.as_view(), name="category-list"),
     path("category/<int:pk>/", CategoryDetailView.as_view(), name="category-detail"),
     path("subcategory/", SubCategoryListView.as_view(), name="subcategory-list"),
-    path("subcategory/<int:pk>/", SubCategoryDetailView.as_view(), name="subcategory-detail"),
+    path(
+        "category/slug/<slug:slug>/",
+        CategoryDetailViewSlag.as_view(),
+        name="category-detail",
+    ),
+    path(
+        "subcategory/<int:pk>/",
+        SubCategoryDetailView.as_view(),
+        name="subcategory-detail",
+    ),
+    path(
+        "subcategory/slug/<slug:slug>/",
+        SubCategoryDetailViewSlag.as_view(),
+        name="subcategory-detail-slug",
+    ),
 ]

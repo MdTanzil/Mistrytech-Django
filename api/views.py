@@ -37,7 +37,7 @@ from rest_framework.decorators import action
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('-id')
     serializer_class = UserSerializer
 
     def perform_create(self, serializer):
@@ -53,7 +53,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('-id')
     serializer_class = CategorySerializer
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -67,55 +67,69 @@ class CategoryViewSet(viewsets.ModelViewSet):
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
 class SubCategoryViewSet(viewsets.ModelViewSet):
-    queryset = SubCategory.objects.all()
+    queryset = SubCategory.objects.all().order_by('-id')
     serializer_class = SubCategorySerializer
 
 class DiscountViewSet(viewsets.ModelViewSet):
-    queryset = Discount.objects.all()
+    queryset = Discount.objects.all().order_by('-id')
     serializer_class = DiscountSerializer
     
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Product.objects.all().order_by('-id')
     serializer_class = ProductSerializer
 class ImageViewSet(viewsets.ModelViewSet):
-    queryset = Image.objects.all()
+    queryset = Image.objects.all().order_by('-id')
     serializer_class = ImageSerializer
     
 
 class VariantViewSet(viewsets.ModelViewSet):
-    queryset = Variant.objects.all()
+    queryset = Variant.objects.all().order_by('-id')
     serializer_class = VariantSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+    queryset = Order.objects.all().order_by('-id')
     serializer_class = OrderSerializer
     
 class ShippingAddressViewSet(viewsets.ModelViewSet):
-    queryset = ShippingAddress.objects.all()
+    queryset = ShippingAddress.objects.all().order_by('-id')
     serializer_class = ShippingAddressSerializer
 
 class OrderItemViewSet(viewsets.ModelViewSet):
-    queryset = OrderItem.objects.all()
+    queryset = OrderItem.objects.all().order_by('-id')
     serializer_class = OrderItemSerializer
 
 class PaymentViewSet(viewsets.ModelViewSet):
-    queryset = Payment.objects.all()
+    queryset = Payment.objects.all().order_by('-id')
     serializer_class = PaymentSerializer
     
 
 class CategoryDetailView(RetrieveAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('-id')
     serializer_class = CategoryDetailSerializer
 
 class CategoryListView(ListAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('-id')
     serializer_class = CategoryListSerializer
 
 
 class SubCategoryDetailView(RetrieveAPIView):
-    queryset = SubCategory.objects.all()
+    queryset = SubCategory.objects.all().order_by('-id')
     serializer_class = SubCategoryDetailSerializer
 
 class SubCategoryListView(ListAPIView):
-    queryset = SubCategory.objects.all()
+    queryset = SubCategory.objects.all().order_by('-id')
     serializer_class = SubCategoryListSerializer
+
+class SubCategoryDetailViewSlag(ListAPIView):
+    serializer_class = SubCategoryDetailSerializer
+
+    def get_queryset(self):
+        subcategory_slug = self.kwargs['slug']
+        return SubCategory.objects.filter(slug=subcategory_slug)
+
+class CategoryDetailViewSlag(ListAPIView):
+    serializer_class = CategoryDetailSerializer
+
+    def get_queryset(self):
+        category_slug = self.kwargs['slug']
+        return Category.objects.filter(slug=category_slug)

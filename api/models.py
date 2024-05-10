@@ -54,18 +54,15 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     slug = models.SlugField(null=True, blank=True)
-    category = models.ForeignKey(
+    category = models.ManyToManyField(
         Category,
-        on_delete=models.CASCADE,
-        related_name="products",
-        null=True,
+        related_name="products_in_category",
+      
         blank=True,
     )
-    subcategory = models.ForeignKey(
+    subcategory = models.ManyToManyField(
         SubCategory,
-        on_delete=models.CASCADE,
-        related_name="products",
-        null=True,
+        related_name="products_in_subcategory",
         blank=True,
     )
     discount = models.ForeignKey(
@@ -227,7 +224,7 @@ class OrderItem(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Product quantity{self.quantity} product price{self.price}"
+        return f"Id : ' {self.id}' Product quantity{self.quantity} product price{self.price}"
 
 
 class Payment(models.Model):

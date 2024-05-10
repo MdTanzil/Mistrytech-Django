@@ -28,6 +28,19 @@ class ImageSerializer(serializers.HyperlinkedModelSerializer):
             "url",
         ]
 
+class DiscountSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Discount
+        exclude = ["created_at", "updated_at", "is_active"]
+
+class VariantSerializer(serializers.HyperlinkedModelSerializer):
+    discount= DiscountSerializer(many=False,read_only=True)
+    class Meta:
+        model = Variant
+        exclude = ["created_at", "updated_at", "is_active"]
+        extra_kwargs = {
+            'id': {'read_only': False},  # Make 'id' field writable
+        }
 
 class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
     images = ImageSerializer(many=True, read_only=True)
@@ -37,18 +50,16 @@ class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
         exclude = ["created_at", "updated_at", "is_active"]
 
 
-class DiscountSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Discount
-        exclude = ["created_at", "updated_at", "is_active"]
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     images = ImageSerializer(many=True, read_only=True)
+    variants = VariantSerializer(many=True,read_only=True)
+    discount= DiscountSerializer(many=False,read_only=True)
 
     class Meta:
         model = Product
-        exclude = ["created_at", "updated_at", "is_active"]
+        exclude = ["created_at", "updated_at", "is_active",'category','subcategory']
 
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
@@ -63,7 +74,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 class CategoryDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True, read_only=True)
-    products = ProductSerializer(many=True, read_only=True)
+    products = ProductSerializer(many=True, read_only=True,source='products_in_category')
     subcategories = SubCategorySerializer(many=True, read_only=True)
 
     class Meta:
@@ -87,10 +98,6 @@ class CategoryListSerializer(serializers.ModelSerializer):
         fields = ["url", "name", "description", "slug", "images"]
 
 
-class VariantSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Variant
-        exclude = ["created_at", "updated_at", "is_active"]
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -121,6 +128,7 @@ class OrderItemSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PaymentSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = Payment
         exclude = ["created_at", "updated_at", "is_active"]
@@ -129,8 +137,7 @@ class PaymentSerializer(serializers.HyperlinkedModelSerializer):
 
 class SubCategoryDetailSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True, read_only=True)
-    products = ProductSerializer(many=True, read_only=True)
-
+    products = ProductSerializer(many=True, read_only=True,source='products_in_subcategory')
     class Meta:
         model = SubCategory
         fields = [

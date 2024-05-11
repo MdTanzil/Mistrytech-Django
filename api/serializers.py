@@ -42,7 +42,7 @@ class VariantSerializer(serializers.HyperlinkedModelSerializer):
             'id': {'read_only': False},  # Make 'id' field writable
         }
 
-class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
+class SubCategorySerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True, read_only=True)
 
     class Meta:
@@ -52,7 +52,7 @@ class SubCategorySerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-class ProductSerializer(serializers.HyperlinkedModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True, read_only=True)
     variants = VariantSerializer(many=True,read_only=True)
     discount= DiscountSerializer(many=False,read_only=True)
@@ -147,6 +147,7 @@ class SubCategoryDetailSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "slug",
+            'id'
         ]
 
 

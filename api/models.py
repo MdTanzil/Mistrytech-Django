@@ -11,7 +11,7 @@ from django.contrib.auth.models import AbstractUser
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=255, null=True, blank=True)
-    slug = models.SlugField(null=True, blank=True)
+    slug = models.SlugField(null=True, blank=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
@@ -23,16 +23,19 @@ class Category(models.Model):
 class SubCategory(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=255, null=True, blank=True)
-    slug = models.SlugField(null=True, blank=True)
+    slug = models.SlugField(null=True, blank=True, unique=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="subcategories"
     )
+    bannerImage = models.ImageField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return (
+            f"{self.name } | {self.category.name if self.category else 'No category'}"
+        )
 
 
 class Discount(models.Model):
@@ -57,7 +60,6 @@ class Product(models.Model):
     category = models.ManyToManyField(
         Category,
         related_name="products_in_category",
-      
         blank=True,
     )
     subcategory = models.ManyToManyField(

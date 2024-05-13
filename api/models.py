@@ -132,7 +132,9 @@ class Variant(models.Model):
         null=True,
         blank=True,
     )
+    image = models.ImageField(null=True, blank=True)
     size = models.FloatField(null=True, blank=True)
+    color = models.CharField(null=True, blank=True,max_length=10)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     quantity = models.IntegerField(null=True, blank=True, default=0)
     created_at = models.DateTimeField(auto_now_add=True)

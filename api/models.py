@@ -248,6 +248,15 @@ class Payment(models.Model):
         return self.payment_status
 
 
+class ContractForm(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
+    phone= models.CharField(max_length=100, blank=True, null=True)
+    email = models.CharField(max_length=100, blank=True, null=True)
+    massage = models.TextField( blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
+
 # Signals to generate slug for Category, SubCategory, and Product
 @receiver(pre_save, sender=Category)
 @receiver(pre_save, sender=SubCategory)

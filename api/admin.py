@@ -14,6 +14,7 @@ from .models import (
     ShippingAddress,
     OrderItem,
     Payment,
+    ContractForm
 )
 from django.contrib.auth.admin import UserAdmin
 
@@ -182,6 +183,12 @@ class OrderAdmin(admin.ModelAdmin):
     ordering = ("-id",)
     list_per_page = 20
 
+class ContractFormAdmin(admin.ModelAdmin):
+    list_display = ("name", "email", "phone")   
+    search_fields = ["name", "email", "phone"]
+    ordering = ("-id",)
+    list_per_page = 20
+
 
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = (
@@ -230,3 +237,5 @@ admin.site.register(ShippingAddress)
 admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(ContractForm, ContractFormAdmin)
+

@@ -17,7 +17,8 @@ from .serializers import (
     CategoryDetailSerializer,
     CategoryListSerializer,
     SubCategoryDetailSerializer,
-    SubCategoryListSerializer
+    SubCategoryListSerializer,
+    ContractFormSerializer
     )
 from .models import (
     Category,
@@ -31,14 +32,18 @@ from .models import (
     ShippingAddress,
     OrderItem,
     Payment,
+    ContractForm
 )
 from rest_framework.response import Response  # Import Response
 from rest_framework.decorators import action 
+from .authentication import PostRequestPermission
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-id')
     serializer_class = UserSerializer
+    permission_classes = [PostRequestPermission]
+
 
     def perform_create(self, serializer):
         validated_data = serializer.validated_data
@@ -89,7 +94,14 @@ class VariantViewSet(viewsets.ModelViewSet):
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all().order_by('-id')
     serializer_class = OrderSerializer
+    permission_classes = [PostRequestPermission]
+
+class ContractFormViewSet(viewsets.ModelViewSet):
+    queryset = ContractForm.objects.all().order_by('-id')
+    serializer_class = ContractFormSerializer
+    permission_classes = [PostRequestPermission]
     
+
 class ShippingAddressViewSet(viewsets.ModelViewSet):
     queryset = ShippingAddress.objects.all().order_by('-id')
     serializer_class = ShippingAddressSerializer
@@ -97,6 +109,7 @@ class ShippingAddressViewSet(viewsets.ModelViewSet):
 class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all().order_by('-id')
     serializer_class = OrderItemSerializer
+    permission_classes = [PostRequestPermission]
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all().order_by('-id')

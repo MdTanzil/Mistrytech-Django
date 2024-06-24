@@ -1,6 +1,8 @@
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth import get_user_model
-from rest_framework import  permissions
+from rest_framework import permissions
+
+
 class EmailAuthBackend(BaseBackend):
     def authenticate(self, request, email=None, **kwargs):
         UserModel = get_user_model()
@@ -14,7 +16,18 @@ class EmailAuthBackend(BaseBackend):
 class PostRequestPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         # Allow POST requests for unauthenticated users
-        if request.method == 'POST' and not request.user.is_authenticated:
+        if request.method == "POST" and not request.user.is_authenticated:
+            return True
+        # Allow other requests for authenticated users
+        return request.user and request.user.is_authenticated
+
+
+class PostAndGetRequestPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # Allow POST requests for unauthenticated users
+        if request.method == "POST" and not request.user.is_authenticated:
+            return True
+        if request.method == "GET" and not request.user.is_authenticated:
             return True
         # Allow other requests for authenticated users
         return request.user and request.user.is_authenticated

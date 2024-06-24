@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 828.08 668.19">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-1, .cls-3 {
+        fill: #d78e31;
+      }
+
+      .cls-4 {
+        stroke-width: 3px;
+      }
+
+      .cls-4, .cls-5, .cls-6, .cls-3 {
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+
+      .cls-4, .cls-6 {
+        fill: none;
+      }
+
+      .cls-5 {
+        fill: #c37729;
+      }
+
+      .cls-5, .cls-6, .cls-3 {
+        stroke-width: 4px;
+      }
+
+      .cls-7 {
+        font-family: MyriadPro-Bold, 'Myriad Pro';
+        font-size: 82.76px;
+        font-weight: 700;
+      }
+
+      .cls-7, .cls-2 {
+        fill: #231f20;
+      }
+
+      .cls-8 {
+        fill: #e2492c;
+        font-family: MyriadPro-Regular, 'Myriad Pro';
+        font-size: 165.52px;
+      }
+    </style>
+  </defs>
+  <rect class="cls-6" x="204.46" y="114.94" width="381.18" height="178.18"/>
+  <rect class="cls-6" x="395.05" y="114.94" width="190.59" height="89.09"/>
+  <rect class="cls-6" x="395.05" y="204.6" width="190.59" height="89.09"/>
+  <rect class="cls-6" x="204.46" y="114.94" width="190.59" height="178.74"/>
+  <polygon class="cls-5" points="391.32 189.42 374.04 189.42 374.04 225.29 395.05 225.29 395.05 189.42 391.32 189.42"/>
+  <line class="cls-6" x1="234.65" y1="84.76" x2="314.48" y2="84.76"/>
+  <polygon class="cls-3" points="474.16 62.37 517.49 62.37 560.81 62.37 533.55 2 497.53 2 474.16 62.37"/>
+  <path class="cls-2" d="M491.85,114.37c0-14.2,11.95-25.72,26.69-25.72s26.69,11.52,26.69,25.72"/>
+  <rect class="cls-2" x="482.19" y="135.63" width="13.79" height="13.79"/>
+  <rect class="cls-2" x="482.19" y="221.31" width="13.79" height="13.79"/>
+  <polygon class="cls-2" points="214.2 293.68 214.2 349.1 278.46 293.68 214.2 293.68"/>
+  <polygon class="cls-2" points="577.05 295.92 576.79 351.33 512.8 295.61 577.05 295.92"/>
+  <path class="cls-4" d="M153.83,349.1s47.1,19.59,68.28,1.25c1.6-1.39,3.37-2.56,5.23-3.58,8.82-4.8,30.85-14.04,47.23,2.33,0,0,20.82,23.09,44.57,2.47,2.58-2.24,5.54-3.96,8.71-5.23,9.52-3.82,28.2-9.2,40.88.78,2.18,1.71,4.45,3.29,6.96,4.46,8.38,3.92,26.19,10.14,39.56.07,2.84-2.14,5.99-3.84,9.37-4.95,9.95-3.28,29.07-7.85,40.29.69,1.86,1.42,3.79,2.71,5.92,3.69,8.68,3.98,29.74,11.66,44.53.7,2.96-2.2,6.25-3.92,9.77-5.02,10.69-3.33,31.58-8.04,42.53,1.46,1.53,1.33,3.25,2.4,5.03,3.37,7.01,3.83,21.85,9.93,35.05,2.26,5.13-2.98,10.86-4.76,16.79-4.76h16.11"/>
+  <path class="cls-6" d="M594.4,626.85h233.67-233.67Z"/>
+  <path class="cls-6" d="M223.45,630.48H0h223.45Z"/>
+  <text class="cls-8" transform="translate(32.64 515.02)"><tspan x="0" y="0">Mistrytech</tspan></text>
+  <text class="cls-7" transform="translate(245.38 647.5)"><tspan x="0" y="0">furniture</tspan></text>
+  <line class="cls-6" x1="518.54" y1="88.65" x2="517.49" y2="62.37"/>
+  <rect class="cls-1" x="622.53" y="199.24" width="16.24" height="16.24" rx="3.22" ry="3.22" transform="translate(38.09 506.67) rotate(-45)"/>
+  <rect class="cls-1" x="149.36" y="199.24" width="16.24" height="16.24" rx="3.22" ry="3.22" transform="translate(-100.5 172.08) rotate(-45)"/>
+</svg>

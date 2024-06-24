@@ -16,7 +16,8 @@ from .views import (
     SubCategoryListView,
     SubCategoryDetailViewSlag,
     CategoryDetailViewSlag,
-    ContractFormViewSet
+    ContractFormViewSet,
+    OrderItemViewSet
 )
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
@@ -32,7 +33,7 @@ router.register(r"variant", VariantViewSet)
 router.register(r"order", OrderViewSet)
 router.register(r"payment", PaymentViewSet)
 router.register(r"contact", ContractFormViewSet)
-
+router.register(r"order-item", OrderItemViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

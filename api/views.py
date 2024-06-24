@@ -36,7 +36,7 @@ from .models import (
 )
 from rest_framework.response import Response  # Import Response
 from rest_framework.decorators import action 
-from .authentication import PostRequestPermission
+from .authentication import PostRequestPermission ,PostAndGetRequestPermission
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -109,7 +109,7 @@ class ShippingAddressViewSet(viewsets.ModelViewSet):
 class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all().order_by('-id')
     serializer_class = OrderItemSerializer
-    permission_classes = [PostRequestPermission]
+    permission_classes = [PostAndGetRequestPermission]
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all().order_by('-id')
